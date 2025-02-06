@@ -1,0 +1,88 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Meeting Room</title>
+    <link rel="icon" type="image/x-icon" href="public/Assets/images/HR logo1.png">
+    <link rel="stylesheet" href="public/Assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="public/Assets/css/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+        <a href="#" class="navbar-brand">
+            <img src="" class="logo" alt="">
+            Meeting Room
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="staff_join.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/scheduled.html" class="nav-link sign-in display-center">Scheduled Meetings</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button class="btn btn-lg btn-info text-light font-weight-bold join-meeting">Join a Meeting</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <div class="jumbotron d-flex flex-column flex-md-row align-items-center">
+            <div class="container w-50">
+                <h1>Welcome to Your Meeting Room</h1>
+                <p>Use your meeting code provided by the HR team to join meetings securely and effortlessly.</p>
+                <ul class="display-center justify-content-start">
+                    <li class="pl-3">
+                        <button class="btn btn-lg btn-outline-secondary text-dark font-weight-bold display-center"
+                            style="background-color: #ffffff;">
+                            <span class="material-icons mr-2">keyboard</span>
+                            <input type="text" placeholder="Enter a meeting code" style="border: none;"
+                                class="enter-code">
+                        </button>
+                    </li>
+                    <li class="text-dark font-weight-bold cursor-pointer pl-2 join-action">Join</li>
+                </ul>
+            </div>
+            <div class="container w-50">
+                <img src="public/Assets/images/group_meeting.webp" alt="Group Meeting" class="signin-image">
+            </div>
+        </div>
+    </main>
+    <footer class="container">
+        <h6>Need help? Contact your HR team for assistance.</h6>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="public/Assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function () {
+            // Focus on the code input field when "Join a Meeting" is clicked
+            $(document).on("click", ".join-meeting", function () {
+                $(".enter-code").focus();
+            });
+
+            // Join meeting logic
+            $(document).on("click", ".join-action", function () {
+                var join_value = $('.enter-code').val();
+                if (join_value) {
+                    var meetingUrl = window.location.origin + "?meetingID=" + join_value;
+                    window.location.replace(meetingUrl);
+                } else {
+                    alert("Please enter a meeting code.");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html> -->

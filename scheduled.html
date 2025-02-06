@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR MEETING ROOM</title>
+    <link rel="icon" type="image/x-icon" href="public/Assets/images/HR logo1.png">
+    <link rel="stylesheet" href="public/Assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="public/Assets/css/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+        <a href="#" class="navbar-brand">
+            <!-- <img src="" class="logo" alt="Brand Logo"> -->
+            Meeting Room
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a href="action.html" class="nav-link">Home</a></li>
+                <!-- <li class="nav-item"><a href="#" class="nav-link">How it works</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Plan and Price</a></li> -->
+                <li class="nav-item"><a href="/scheduled.html" class="nav-link sign-in display-center">Scheduled</a>
+                </li>
+
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><button
+                        class="btn btn-outline-secondary btn-lg text-info font-weight-bold join-meeting">Join the
+                        meeting</button></li>
+                <li class="nav-item"><button
+                        class="btn btn-lg btn-info text-light font-weight-bold scheduleMeetingModal">Schedule a
+                        meeting</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h2 class="text-center">Scheduled Meetings</h2>
+        <div id="loading" class="text-center mt-5" style="display: none;">
+            <span>Loading meetings...</span>
+        </div>
+        <div id="meetingList" class="mt-4"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(function () {
+            // Show loading indicator
+            $('#loading').show();
+
+            // Fetch saved scheduled meetings from the server
+            $.ajax({
+                url: "http://localhost:3000/get_meetings", // Endpoint to get saved meetings
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    $('#loading').hide(); // Hide loading indicator
+                    if (response.status === "success") {
+                        const meetings = response.data;
+                        let meetingHtml = "";
+
+                        if (meetings.length === 0) {
+                            meetingHtml = "<p>No scheduled meetings found.</p>";
+                        } else {
+                            meetings.forEach(function (meeting) {
+                                meetingHtml += ` 
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${meeting.title}</h5>
+                                            <p class="card-text">Date: ${meeting.date}</p>
+                                            <p class="card-text">Time: ${meeting.time}</p>
+                                            <button class="btn btn-primary start-meeting" data-id="${meeting.id}">Start Meeting</button>
+                                        </div>
+                                    </div>
+                                `;
+                            });
+                        }
+
+                        $("#meetingList").html(meetingHtml);
+                    } else {
+                        $("#meetingList").html("<p>Error loading meetings. Please try again later.</p>");
+                    }
+                },
+                error: function () {
+                    $('#loading').hide(); // Hide loading indicator on error
+                    alert("An error occurred while fetching the scheduled meetings.");
+                }
+            });
+
+            // Start the meeting when the button is clicked
+            $(document).on("click", ".start-meeting", function () {
+                const meetingId = $(this).data("id");
+
+                // Generate a random 8-digit meeting ID
+                var eight_d_value = Math.floor(Math.random() * 100000000); // 8-digit random value
+
+                // Create the meeting URL with the generated meeting ID
+                const meetingUrl = `${window.location.origin}/index.html?meetingID=${eight_d_value}`;
+
+                // Redirect to the meeting URL
+                window.location.replace(meetingUrl);
+            });
+        });
+    </script>
+</body>
+
+</html>

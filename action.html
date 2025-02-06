@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR MEETING ROOM</title>
+    <link rel="icon" type="image/x-icon" href="public/Assets/images/HR logo1.png">
+    <link rel="stylesheet" href="public/Assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="public/Assets/css/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+        <a href="#" class="navbar-brand">
+            <img src="" class="logo" alt="">
+            Meeting Room
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a href="action.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/scheduled.html" class="nav-link sign-in display-center">Scheduled</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <button class="btn btn-outline-secondary btn-lg text-info font-weight-bold join-meeting">Join the
+                        meeting</button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-lg btn-info text-light font-weight-bold scheduleMeetingModal">Schedule a
+                        meeting</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <!-- Schedule Meeting Modal -->
+        <div class="modal fade" id="scheduleMeetingModal" tabindex="-1" role="dialog"
+            aria-labelledby="scheduleMeetingModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="scheduleMeetingModalLabel">Schedule a Meeting</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="scheduleMeetingForm">
+                            <div class="form-group">
+                                <label for="meetingTitle">Meeting Title</label>
+                                <input type="text" class="form-control" id="meetingTitle"
+                                    placeholder="Enter meeting title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="meetingDate">Date</label>
+                                <input type="date" class="form-control" id="meetingDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="meetingTime">Time</label>
+                                <input type="time" class="form-control" id="meetingTime" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveMeeting">Save Meeting</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="jumbotron d-flex flex-column flex-md-row align-items-center">
+            <div class="container w-50">
+                <h1>Effortless HR Meeting Management. Now available for everyone.</h1>
+                <p>Use the New meeting button to create,generate a code for the meetings or schedule one using the buttton on the nav.And also you can join the meeting with the already generated code.</p>
+                <ul class="display-center justify-content-start">
+                    <li style="padding: 0;">
+                        <button class="btn btn-lg text-light font-weight-bold display-center new-meeting"
+                            style="background-color: steelblue;">
+                            <span class="material-icons mr-2">video_call</span>New Meeting
+                        </button>
+                    </li>
+                    <li class="pl-3">
+                        <button class="btn btn-lg btn-outline-secondary text-dark font-weight-bold display-center"
+                            style="background-color: #ffffff;">
+                            <span class="material-icons mr-2">keyboard</span><input type="text"
+                                placeholder="Enter a code" style="border: none;" class="enter-code">
+                        </button>
+                    </li>
+                    <li class="text-dark font-weight-bold cursor-pointer pl-2 join-action">Join</li>
+                </ul>
+            </div>
+            <div class="container w-50">
+                <img src="public/Assets/images/group_meeting.webp" alt="Group Meeting" class="signin-image">
+            </div>
+        </div>
+    </main>
+    <footer class="container">
+        <h6>Learn more about <span class="learn-more text-info">the meeting room </span>HR DIVE.</h6>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="public/Assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function () {
+            $(document).on("click", ".join-meeting", function () {
+                $(".enter-code").focus();
+            });
+            $(document).on("click", ".join-action", function () {
+                var join_value = $('.enter-code').val();
+                if (join_value) {
+                    var meetingUrl = window.location.origin + "?meetingID=" + join_value;
+                    window.location.replace(meetingUrl);
+                } else {
+                    alert("Please enter a meeting code.");
+                }
+            });
+
+            $(document).on("click", ".new-meeting", function () {
+                var eight_d_value = Math.floor(Math.random() * 100000000);
+                var meetingUrl = window.location.origin + "?meetingID=" + eight_d_value;
+                window.location.replace(meetingUrl);
+            });
+        });
+
+
+
+        $(document).ready(function () {
+            // Show the modal when the button is clicked
+            $(document).on("click", ".scheduleMeetingModal", function () {
+                $("#scheduleMeetingModal").modal("show");
+            });
+
+            // Save meeting details when the "Save Meeting" button is clicked
+            $(document).on("click", "#saveMeeting", function () {
+                const title = $("#meetingTitle").val();
+                const date = $("#meetingDate").val();
+                const time = $("#meetingTime").val();
+
+                if (title && date && time) {
+                    // Prepare the data to send to the server
+                    const meetingData = {
+                        title: title,
+                        date: date,
+                        time: time
+                    };
+
+                    // Send data to the server via AJAX
+                    $.ajax({
+                        url: "http://localhost:3000/save_meeting", // Updated to the correct backend route
+                        type: "POST",
+                        contentType: "application/json", // Set content type as JSON
+                        data: JSON.stringify(meetingData), // Stringify the data
+                        dataType: "json",
+                        success: function (response) {
+                            if (response.status === "success") {
+                                alert(response.message);
+                                $("#scheduleMeetingModal").modal("hide");
+                            } else {
+                                alert(response.message);
+                            }
+                        },
+                        error: function () {
+                            alert("An error occurred while saving the meeting.");
+                        }
+                    });
+                } else {
+                    alert("Please fill out all fields before saving.");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
